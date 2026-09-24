@@ -85,7 +85,7 @@ Ou seja, mesmo reconhecendo valor nos itens à direita, a gente fica com o trem.
 
 ## III. Fundamentação Técnica
 
-Pode parecer que o Manifesto Trem é brincadeira. Leia os argumentos abaixo e depois reflita bem sobre o fato de que ele continua sendo brincadeira.
+Os argumentos abaixo se sustentam no PostgreSQL, no TypeScript e nas decisões das maiores empresas de tecnologia do mundo. Leia com calma e um café do lado.
 
 ### 1. O melhor dos dois mundos: SQL e NoSQL ao mesmo tempo
 
@@ -292,7 +292,7 @@ Seu time já fala "trem" no dia a dia. Falta só admitir isso no banco de dados.
 > que só vou declarar um tipo, e ele vai se chamar `Trem`;
 > que vou tratar toda coluna como opcional, porque a vida é assim;
 > que vou fazer join de trem com trem, sem vergonha nenhuma;
-> que nunca vou criar `outro_trem`, nem de brincadeira, nem em staging;
+> que nunca vou criar `outro_trem`, nem em staging, nem num sábado de madrugada;
 > e que vou entregar na velocidade de uma Kombi tunada com neon.
 >
 > *Uai.*
@@ -309,4 +309,4 @@ Para assinar, abra um Pull Request adicionando seu nome **aqui, neste arquivo**.
 
 ---
 
-<sub>Qualquer semelhança com boas práticas de engenharia é mera coincidência. Ou não. É trem demais pra pensar.</sub>
+<sub>Uma tabela. Um tipo. Um trem. Para sempre.</sub>
