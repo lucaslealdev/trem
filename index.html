@@ -1,0 +1,1197 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Manifesto Trem</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=JetBrains+Mono:wght@400;600&family=Literata:ital,opsz,wght@0,7..72,400;0,7..72,600;1,7..72,400&family=Monoton&display=swap">
+<style>
+  :root {
+    color-scheme: dark;
+    --carvao: #16100b;
+    --carvao-2: #20170f;
+    --carvao-3: #2c2117;
+    --trilho: #4a3726;
+    --vapor: #f4ead8;
+    --vapor-2: #cdbca0;
+    --vapor-3: #8f7c63;
+    --ouro: #f2b53c;
+    --ouro-2: #ffd774;
+    --ferro: #c4502b;
+    --ferro-2: #7e2e16;
+    --verde: #8fd694;
+    --heresia: #ff6b4a;
+    --neon-rosa: #ff3fb4;
+    --neon-ciano: #3ff2ff;
+    --noite: #13061f;
+    --f-display: "Alfa Slab One", Rockwell, "Roboto Slab", Georgia, serif;
+    --f-body: "Literata", Georgia, "Times New Roman", serif;
+    --f-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    --f-neon: "Monoton", "Alfa Slab One", Impact, sans-serif;
+    --gutter: clamp(16px, 4vw, 48px);
+    --max: 1120px;
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: var(--carvao);
+    color: var(--vapor);
+    font-family: var(--f-body);
+    font-size: 1.0625rem;
+    line-height: 1.65;
+    overflow-x: clip;
+  }
+  img { max-width: 100%; }
+  a { color: var(--ouro); }
+  :focus-visible { outline: 3px solid var(--ouro); outline-offset: 3px; border-radius: 4px; }
+  h1, h2, h3 { text-wrap: balance; margin: 0; }
+  p { margin: 0; }
+  code, pre { font-family: var(--f-mono); }
+  code { font-size: .9em; background: var(--carvao-3); padding: .1em .35em; border-radius: 4px; color: var(--ouro-2); }
+
+  .wrap { max-width: var(--max); margin-inline: auto; padding-inline: var(--gutter); }
+
+  /* ---------- Trilho de progresso ---------- */
+  .progresso {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 50;
+    padding-top: env(safe-area-inset-top, 0px);
+    height: calc(4px + env(safe-area-inset-top, 0px));
+    background: repeating-linear-gradient(90deg, var(--trilho) 0 6px, transparent 6px 12px);
+    opacity: 0; transition: opacity .3s;
+    pointer-events: none;
+  }
+  .progresso.ativo { opacity: 1; }
+  .progresso::before {
+    content: ""; position: absolute; left: 0; bottom: 0; height: 4px;
+    width: calc(var(--p, 0) * 100%);
+    background: linear-gradient(90deg, var(--ferro), var(--ouro));
+  }
+  .progresso .mini-trem {
+    position: absolute; bottom: -20px; font-size: 20px; line-height: 1;
+    left: calc(var(--p, 0) * (100% - 24px));
+    transform: scaleX(-1);
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,.6));
+  }
+
+  /* ---------- Hero ---------- */
+  .hero {
+    position: relative; overflow: hidden;
+    padding-block: clamp(56px, 10vw, 112px) 150px;
+    background:
+      radial-gradient(60% 50% at 50% 0%, rgba(242,181,60,.18), transparent 70%),
+      radial-gradient(50% 40% at 85% 100%, rgba(196,80,43,.25), transparent 70%),
+      var(--carvao);
+    border-bottom: 1px solid var(--trilho);
+  }
+  .hero-inner { display: grid; gap: 28px; justify-items: start; }
+  .eyebrow {
+    font-family: var(--f-mono); font-size: .8rem; letter-spacing: .14em; text-transform: uppercase;
+    color: var(--ouro); display: inline-flex; gap: .6em; align-items: center;
+    border: 1px solid rgba(242,181,60,.35); padding: .45em .9em; border-radius: 999px;
+    background: rgba(242,181,60,.06);
+  }
+  .hero-title { display: grid; line-height: .9; }
+  .h-small {
+    font-family: var(--f-display); font-size: clamp(1.4rem, 3.4vw, 2.4rem);
+    color: var(--vapor-2); letter-spacing: .04em; text-transform: uppercase;
+  }
+  .h-big {
+    font-family: var(--f-display); font-weight: 400;
+    font-size: clamp(5.5rem, 22vw, 15rem); color: var(--ouro);
+    letter-spacing: .02em; display: flex;
+    text-shadow:
+      1px 1px 0 var(--ferro), 2px 2px 0 var(--ferro), 3px 3px 0 var(--ferro),
+      4px 4px 0 var(--ferro), 5px 5px 0 var(--ferro), 6px 6px 0 var(--ferro-2),
+      7px 7px 0 var(--ferro-2), 8px 8px 0 var(--ferro-2), 9px 9px 0 var(--ferro-2),
+      0 0 80px rgba(242,181,60,.35);
+  }
+  .h-big span { display: inline-block; animation: cai 900ms cubic-bezier(.2,1.4,.4,1) both; }
+  .h-big span:nth-child(2) { animation-delay: 120ms; }
+  .h-big span:nth-child(3) { animation-delay: 240ms; }
+  .h-big span:nth-child(4) { animation-delay: 360ms; }
+  @keyframes cai {
+    from { transform: translateY(-60px) rotate(-6deg); opacity: 0; }
+    to { transform: none; opacity: 1; }
+  }
+  .hero-lede { max-width: 60ch; font-size: clamp(1.05rem, 1.8vw, 1.3rem); color: var(--vapor-2); }
+  .hero-lede strong { color: var(--vapor); font-weight: 600; }
+  .hero-ctas { display: flex; flex-wrap: wrap; gap: 12px; }
+  .btn {
+    font: inherit; font-family: var(--f-display); font-size: 1.05rem; letter-spacing: .02em;
+    display: inline-flex; align-items: center; gap: .5em; cursor: pointer;
+    padding: .8em 1.3em; border-radius: 10px; text-decoration: none;
+    border: 2px solid var(--ouro); transition: transform .15s, box-shadow .15s, background .15s;
+  }
+  .btn-ouro { background: var(--ouro); color: var(--carvao); box-shadow: 0 5px 0 var(--ferro-2); }
+  .btn-ouro:hover { transform: translateY(-2px); box-shadow: 0 7px 0 var(--ferro-2); }
+  .btn-ouro:active { transform: translateY(4px); box-shadow: 0 1px 0 var(--ferro-2); }
+  .btn-ghost { background: transparent; color: var(--ouro); }
+  .btn-ghost:hover { background: rgba(242,181,60,.1); }
+  .selos { list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: 8px 20px; color: var(--vapor-3); font-size: .95rem; }
+
+  .ferrovia { position: absolute; left: 0; right: 0; bottom: 18px; height: 110px; pointer-events: none; }
+  .trilhos {
+    position: absolute; left: 0; right: 0; bottom: 0; height: 16px;
+    background:
+      linear-gradient(var(--vapor-3), var(--vapor-3)) 0 2px / 100% 3px no-repeat,
+      linear-gradient(var(--vapor-3), var(--vapor-3)) 0 11px / 100% 3px no-repeat,
+      repeating-linear-gradient(90deg, var(--trilho) 0 10px, transparent 10px 30px);
+  }
+  .comboio {
+    position: absolute; left: 0; bottom: 10px; white-space: nowrap;
+    font-size: clamp(44px, 6vw, 68px); line-height: 1;
+    animation: passa 16s linear infinite;
+  }
+  .comboio > span { display: inline-block; position: relative; animation: sacode .5s ease-in-out infinite alternate; }
+  .comboio > span:nth-child(even) { animation-delay: .25s; }
+  @keyframes passa { from { transform: translateX(100vw); } to { transform: translateX(-110%); } }
+  @keyframes sacode { from { transform: translateY(0); } to { transform: translateY(-3px); } }
+  .fumaca {
+    position: absolute; left: 18%; top: -4px; width: 22px; height: 22px; border-radius: 50%;
+    background: var(--vapor); opacity: 0; filter: blur(3px);
+    animation: sobe 2.2s ease-out infinite;
+  }
+  .fumaca.f2 { animation-delay: .7s; }
+  .fumaca.f3 { animation-delay: 1.4s; }
+  @keyframes sobe {
+    0% { transform: translate(0, 0) scale(.4); opacity: .75; }
+    100% { transform: translate(30px, -80px) scale(2.4); opacity: 0; }
+  }
+
+  /* ---------- Letreiro ---------- */
+  .letreiro { background: var(--ferro); color: var(--vapor); overflow: hidden; border-block: 3px solid var(--ferro-2); }
+  .letreiro-faixa {
+    display: flex; width: max-content; gap: 0;
+    font-family: var(--f-display); font-size: clamp(1rem, 2vw, 1.35rem); letter-spacing: .06em;
+    padding-block: .7em; animation: corre 40s linear infinite;
+  }
+  .letreiro-faixa span { padding-inline: 1.2em; white-space: nowrap; }
+  @keyframes corre { to { transform: translateX(-50%); } }
+
+  /* ---------- Quadro de partidas ---------- */
+  .partidas { padding-block: 72px 24px; }
+  .board {
+    background: #0c0805; border: 2px solid var(--trilho); border-radius: 14px; overflow: hidden;
+    box-shadow: 0 20px 60px rgba(0,0,0,.45), inset 0 0 0 6px #120d08;
+    font-family: var(--f-mono);
+  }
+  .board-head {
+    display: flex; justify-content: space-between; align-items: center; gap: 12px;
+    padding: 14px 20px; background: var(--carvao-3); border-bottom: 2px solid var(--trilho);
+    font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--vapor);
+  }
+  .board-head .relogio { color: var(--ouro); font-variant-numeric: tabular-nums; font-size: 1.2rem; }
+  .board-cols, .board-rows a {
+    display: grid; grid-template-columns: 4.5rem 1fr 6.5rem 9.5rem; gap: 12px; align-items: center;
+    padding: 10px 20px;
+  }
+  .board-cols { font-size: .7rem; letter-spacing: .16em; text-transform: uppercase; color: var(--vapor-3); border-bottom: 1px dashed var(--trilho); }
+  .board-rows { list-style: none; margin: 0; padding: 0; }
+  .board-rows li + li a { border-top: 1px dashed rgba(74,55,38,.6); }
+  .board-rows a { text-decoration: none; color: var(--ouro-2); transition: background .15s; font-variant-numeric: tabular-nums; }
+  .board-rows a:hover { background: rgba(242,181,60,.07); }
+  .board-rows .dest { color: var(--vapor); text-transform: uppercase; letter-spacing: .04em; }
+  .board-rows .plat { color: var(--vapor-3); }
+  .status { font-size: .8rem; letter-spacing: .08em; text-transform: uppercase; color: var(--verde); }
+  .status.embarcando { color: var(--ouro); animation: pisca 1s steps(2, start) infinite; }
+  .status.partiu { color: var(--vapor-3); }
+  @keyframes pisca { to { visibility: hidden; } }
+
+  /* ---------- Estações (seções) ---------- */
+  .estacao { padding-block: clamp(64px, 9vw, 120px); scroll-margin-top: 20px; }
+  .estacao + .estacao { border-top: 1px solid rgba(74,55,38,.6); }
+  .est-head { display: grid; gap: 16px; margin-bottom: clamp(32px, 5vw, 56px); max-width: 760px; }
+  .placa {
+    justify-self: start; font-family: var(--f-mono); font-size: .78rem; letter-spacing: .16em; text-transform: uppercase;
+    background: var(--ferro); color: var(--vapor); padding: .45em .9em; border-radius: 6px;
+    box-shadow: 0 3px 0 var(--ferro-2);
+  }
+  .est-head h2 { font-family: var(--f-display); font-weight: 400; font-size: clamp(2.2rem, 5.5vw, 3.8rem); line-height: 1.02; color: var(--vapor); }
+  .est-head h2 em { font-style: normal; color: var(--ouro); }
+  .est-lede { color: var(--vapor-2); font-size: 1.15rem; max-width: 62ch; }
+
+  /* Estação 1: equação */
+  .equacao { display: grid; grid-template-columns: 1fr auto 1fr auto 1.25fr; gap: 16px; align-items: stretch; }
+  .op { align-self: center; font-family: var(--f-display); font-size: 2.6rem; color: var(--vapor-3); text-align: center; }
+  .lado {
+    background: var(--carvao-2); border: 1px solid var(--trilho); border-radius: 16px; padding: 24px;
+    display: grid; gap: 14px; align-content: start;
+  }
+  .lado h3 { font-family: var(--f-display); font-weight: 400; font-size: 1.5rem; display: flex; gap: .4em; align-items: center; }
+  .lado .emoji { font-size: 2.2rem; }
+  .lado ul { list-style: none; padding: 0; margin: 0; display: grid; gap: 8px; font-size: .98rem; color: var(--vapor-2); }
+  .lado.trem {
+    background: linear-gradient(160deg, rgba(242,181,60,.16), rgba(196,80,43,.12)), var(--carvao-2);
+    border: 2px solid var(--ouro); animation: brilho 3s ease-in-out infinite;
+  }
+  .lado.trem h3 { color: var(--ouro); }
+  .lado.trem ul { color: var(--vapor); }
+  @keyframes brilho { 50% { box-shadow: 0 0 40px rgba(242,181,60,.3); } }
+  .rodape-est { margin-top: 32px; color: var(--vapor-2); max-width: 70ch; font-size: 1.05rem; }
+
+  /* Estação 2: regras */
+  .regras { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+  .regra { display: grid; gap: 16px; align-content: start; min-width: 0; }
+  .regra-rotulo { font-family: var(--f-mono); color: var(--ouro); font-size: .85rem; letter-spacing: .12em; text-transform: uppercase; }
+  .regra h3 { font-family: var(--f-display); font-weight: 400; font-size: clamp(1.35rem, 2.6vw, 1.75rem); line-height: 1.2; }
+  .janela { background: #0d0906; border: 1px solid var(--trilho); border-radius: 12px; overflow: hidden; min-width: 0; }
+  .janela-barra { display: flex; gap: 8px; align-items: center; padding: 10px 14px; background: var(--carvao-3); font-family: var(--f-mono); font-size: .78rem; color: var(--vapor-3); }
+  .janela-barra i { width: 11px; height: 11px; border-radius: 50%; background: var(--trilho); display: inline-block; }
+  .janela-barra i:first-child { background: var(--ferro); }
+  .janela-barra i:nth-child(2) { background: var(--ouro); }
+  .janela-barra span { margin-left: 6px; }
+  .janela pre { margin: 0; padding: 18px; overflow-x: auto; font-size: .86rem; line-height: 1.6; color: var(--vapor); }
+  .k { color: var(--ouro); font-weight: 600; }
+  .t { color: var(--verde); }
+  .c { color: var(--vapor-3); font-style: italic; }
+  .s { color: #ff9b72; }
+
+  .ponta { margin-top: 48px; background: var(--carvao-2); border: 1px solid var(--trilho); border-radius: 16px; padding: 28px 24px 24px; }
+  .ponta h3 { font-family: var(--f-display); font-weight: 400; font-size: 1.4rem; margin-bottom: 22px; }
+  .ponta h3 em { font-style: normal; color: var(--ouro); }
+  .linha-ponta { position: relative; display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; }
+  .linha-ponta::before {
+    content: ""; position: absolute; left: 6%; right: 6%; top: 30px; height: 6px;
+    background: repeating-linear-gradient(90deg, var(--vapor-3) 0 4px, transparent 4px 14px);
+    border-block: 1px solid var(--vapor-3);
+  }
+  .parada { position: relative; display: grid; justify-items: center; text-align: center; gap: 6px; }
+  .parada .bola {
+    width: 62px; height: 62px; border-radius: 50%; display: grid; place-items: center; font-size: 1.8rem;
+    background: var(--carvao-3); border: 2px solid var(--ouro);
+  }
+  .parada strong { font-size: .95rem; }
+  .parada code { font-size: .72rem; }
+  .viajante { position: absolute; top: -14px; left: 0; font-size: 28px; animation: viaja 7s ease-in-out infinite; }
+  .viajante span { display: inline-block; transform: scaleX(-1); }
+  @keyframes viaja { 0% { left: 0; } 50% { left: calc(100% - 32px); } 50.01% { left: calc(100% - 32px); opacity: 0; } 55% { left: 0; opacity: 0; } 60%, 100% { left: 0; opacity: 1; } }
+
+  /* Estação 3: valores */
+  .valores { list-style: none; padding: 0; margin: 0; display: grid; gap: 0; border-top: 1px solid var(--trilho); }
+  .valores li {
+    display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: 8px 24px; align-items: baseline;
+    padding: 22px 4px; border-bottom: 1px solid var(--trilho); transition: background .2s, padding .2s;
+  }
+  .valores li:hover { background: rgba(242,181,60,.05); padding-left: 16px; }
+  .valores .mais { font-family: var(--f-display); font-size: clamp(1.3rem, 3vw, 2rem); color: var(--ouro); line-height: 1.15; }
+  .valores .menos { color: var(--vapor-3); font-style: italic; }
+  .valores .menos::before { content: "mais que "; font-style: normal; color: var(--vapor-2); }
+
+  /* Estação 4: fundamentos */
+  .args { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
+  .arg {
+    background: var(--carvao-2); border: 1px solid var(--trilho); border-radius: 16px; padding: 24px;
+    display: grid; gap: 12px; align-content: start; min-width: 0;
+    transition: transform .2s, border-color .2s, box-shadow .2s;
+  }
+  .arg:hover { transform: translateY(-4px); border-color: var(--ouro); box-shadow: 0 14px 30px rgba(0,0,0,.35); }
+  .arg:hover .arg-emoji { transform: rotate(-10deg) scale(1.15); }
+  .arg-emoji { font-size: 2.2rem; line-height: 1; transition: transform .25s; display: inline-block; }
+  .arg h3 { font-family: var(--f-display); font-weight: 400; font-size: 1.35rem; line-height: 1.2; }
+  .arg p { color: var(--vapor-2); font-size: .98rem; }
+  .arg ul { margin: 0; padding-left: 1.1em; color: var(--vapor-2); font-size: .95rem; display: grid; gap: 4px; }
+  .arg pre { margin: 0; background: #0d0906; border: 1px solid var(--trilho); border-radius: 8px; padding: 12px 14px; overflow-x: auto; font-size: .8rem; line-height: 1.55; }
+  .arg blockquote { margin: 0; border-left: 3px solid var(--ouro); padding-left: 12px; color: var(--vapor); font-style: italic; }
+
+  /* Estação 5: laboratório */
+  .lab { display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); gap: 20px; }
+  .painel { background: var(--carvao-2); border: 1px solid var(--trilho); border-radius: 16px; padding: 24px; display: grid; gap: 16px; align-content: start; min-width: 0; }
+  .painel h3 { font-family: var(--f-display); font-weight: 400; font-size: 1.3rem; }
+  .painel .dica { color: var(--vapor-3); font-size: .92rem; }
+  .vagoes { display: grid; gap: 8px; }
+  .vagao { position: relative; }
+  .vagao input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+  .vagao label {
+    display: flex; align-items: center; gap: 12px; cursor: pointer; user-select: none;
+    padding: 10px 14px; border-radius: 10px; border: 1px solid var(--trilho); background: var(--carvao);
+    font-family: var(--f-mono); font-size: .88rem; transition: border-color .15s, background .15s;
+  }
+  .vagao label .tipo { margin-left: auto; color: var(--vapor-3); font-size: .78rem; }
+  .vagao label .chave {
+    width: 36px; height: 20px; border-radius: 999px; background: var(--trilho); position: relative; flex: none; transition: background .2s;
+  }
+  .vagao label .chave::after {
+    content: ""; position: absolute; top: 3px; left: 3px; width: 14px; height: 14px; border-radius: 50%;
+    background: var(--vapor-2); transition: transform .2s, background .2s;
+  }
+  .vagao input:checked + label { border-color: var(--ouro); background: rgba(242,181,60,.08); }
+  .vagao input:checked + label .chave { background: var(--ouro); }
+  .vagao input:checked + label .chave::after { transform: translateX(16px); background: var(--carvao); }
+  .vagao input:focus-visible + label { outline: 3px solid var(--ouro); outline-offset: 2px; }
+
+  .veredito { display: flex; gap: 16px; align-items: center; padding: 18px; border-radius: 12px; background: var(--carvao); border: 2px solid var(--ouro); }
+  .veredito .v-emoji { font-size: 3rem; line-height: 1; }
+  .veredito.pula .v-emoji { animation: pula .45s cubic-bezier(.3,1.6,.5,1); }
+  @keyframes pula { from { transform: scale(.4) rotate(-20deg); } to { transform: none; } }
+  .veredito strong { display: block; font-family: var(--f-display); font-weight: 400; font-size: 1.35rem; line-height: 1.2; color: var(--ouro); }
+  .veredito span.sub { color: var(--vapor-2); font-size: .95rem; }
+  .selos-ok { display: flex; flex-wrap: wrap; gap: 8px; }
+  .selo-ok { font-family: var(--f-mono); font-size: .78rem; color: var(--verde); border: 1px solid rgba(143,214,148,.4); background: rgba(143,214,148,.08); padding: .3em .7em; border-radius: 999px; }
+  .saida { margin: 0; background: #0d0906; border: 1px solid var(--trilho); border-radius: 10px; padding: 14px; overflow-x: auto; font-size: .82rem; line-height: 1.55; min-height: 3.2em; }
+  .saida-rotulo { font-family: var(--f-mono); font-size: .72rem; letter-spacing: .14em; text-transform: uppercase; color: var(--vapor-3); margin-bottom: -8px; }
+
+  .detector { margin-top: 20px; }
+  .detector-form { display: flex; gap: 10px; flex-wrap: wrap; }
+  .detector-form input {
+    flex: 1 1 280px; min-width: 0; font: inherit; font-family: var(--f-mono); font-size: .92rem;
+    background: var(--carvao); color: var(--vapor); border: 1px solid var(--trilho); border-radius: 10px; padding: .75em 1em;
+  }
+  .detector-form input:focus { border-color: var(--ouro); outline: none; box-shadow: 0 0 0 3px rgba(242,181,60,.25); }
+  .exemplos { display: flex; flex-wrap: wrap; gap: 8px; }
+  .exemplos button {
+    font: inherit; font-family: var(--f-mono); font-size: .76rem; cursor: pointer;
+    background: transparent; color: var(--vapor-2); border: 1px dashed var(--trilho); border-radius: 999px; padding: .35em .8em;
+  }
+  .exemplos button:hover { color: var(--ouro); border-color: var(--ouro); }
+  .sentenca { display: flex; gap: 14px; align-items: flex-start; padding: 16px 18px; border-radius: 12px; border: 2px solid var(--trilho); background: var(--carvao); }
+  .sentenca .s-emoji { font-size: 2rem; line-height: 1; }
+  .sentenca strong { display: block; font-family: var(--f-display); font-weight: 400; font-size: 1.2rem; }
+  .sentenca.ok { border-color: var(--verde); }
+  .sentenca.ok strong { color: var(--verde); }
+  .sentenca.heresia { border-color: var(--heresia); background: rgba(255,107,74,.07); }
+  .sentenca.heresia strong { color: var(--heresia); }
+  .sentenca.duvida { border-color: var(--ouro); }
+  .sentenca.duvida strong { color: var(--ouro); }
+  .sentenca.treme { animation: treme .4s; }
+  @keyframes treme { 20%, 60% { transform: translateX(-6px); } 40%, 80% { transform: translateX(6px); } }
+
+  /* Estação 6: IA */
+  .ia { display: grid; grid-template-columns: minmax(0, .85fr) minmax(0, 1.15fr); gap: 24px; align-items: start; }
+  .ia-destaque { display: grid; gap: 18px; }
+  .numerao { background: var(--carvao-2); border: 1px solid var(--trilho); border-radius: 16px; padding: 24px; }
+  .numerao b { display: block; font-family: var(--f-display); font-weight: 400; font-size: clamp(4rem, 10vw, 6.5rem); line-height: 1; color: var(--ouro); font-variant-numeric: tabular-nums; }
+  .numerao span { color: var(--vapor-2); }
+  .chat { background: var(--carvao-2); border: 1px solid var(--trilho); border-radius: 16px; padding: 20px; display: grid; gap: 12px; }
+  .bolha { max-width: 85%; padding: 10px 14px; border-radius: 14px; font-size: .98rem; }
+  .bolha.eu { justify-self: end; background: var(--carvao-3); border-bottom-right-radius: 4px; }
+  .bolha.ia-b { justify-self: start; background: rgba(242,181,60,.14); border: 1px solid rgba(242,181,60,.4); border-bottom-left-radius: 4px; }
+  .digitando { display: inline-flex; gap: 4px; }
+  .digitando i { width: 7px; height: 7px; border-radius: 50%; background: var(--ouro); animation: ponto 1s infinite; }
+  .digitando i:nth-child(2) { animation-delay: .15s; }
+  .digitando i:nth-child(3) { animation-delay: .3s; }
+  @keyframes ponto { 50% { transform: translateY(-4px); opacity: .4; } }
+  .ia-lista { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; }
+  .ia-lista li { display: grid; grid-template-columns: 2.4rem 1fr; gap: 12px; padding: 16px 18px; background: var(--carvao-2); border: 1px solid var(--trilho); border-radius: 14px; }
+  .ia-lista .e { font-size: 1.6rem; line-height: 1.2; }
+  .ia-lista strong { display: block; color: var(--vapor); }
+  .ia-lista p { color: var(--vapor-2); font-size: .96rem; }
+
+  /* Estação 7: Kombi */
+  .kombi {
+    position: relative; overflow: hidden;
+    background: radial-gradient(70% 60% at 50% 10%, rgba(255,63,180,.22), transparent 70%), var(--noite);
+    border-block: 2px solid var(--neon-rosa);
+  }
+  .kombi::after {
+    content: ""; position: absolute; left: -50%; right: -50%; bottom: 0; height: 45%;
+    background:
+      repeating-linear-gradient(90deg, rgba(63,242,255,.35) 0 2px, transparent 2px 70px),
+      repeating-linear-gradient(0deg, rgba(255,63,180,.35) 0 2px, transparent 2px 46px);
+    transform: perspective(300px) rotateX(60deg); transform-origin: bottom;
+    animation: chao 1.2s linear infinite; pointer-events: none; opacity: .6;
+    mask-image: linear-gradient(transparent, #000 60%);
+    -webkit-mask-image: linear-gradient(transparent, #000 60%);
+  }
+  @keyframes chao { to { background-position: 0 0, 0 46px; } }
+  .kombi .wrap { position: relative; z-index: 1; }
+  .kombi .placa { background: var(--neon-rosa); color: var(--noite); box-shadow: 0 0 18px var(--neon-rosa); }
+  .neon-titulo {
+    font-family: var(--f-neon); font-weight: 400; font-size: clamp(2rem, 6.5vw, 4.6rem); line-height: 1.15; color: #ffe4f5;
+    text-shadow: 0 0 6px var(--neon-rosa), 0 0 18px var(--neon-rosa), 0 0 42px var(--neon-rosa);
+    animation: tremula 5s infinite;
+  }
+  .neon-titulo em { font-style: normal; color: #e2feff; text-shadow: 0 0 6px var(--neon-ciano), 0 0 18px var(--neon-ciano), 0 0 42px var(--neon-ciano); }
+  @keyframes tremula { 0%, 18%, 22%, 62%, 64%, 100% { opacity: 1; } 20%, 63% { opacity: .55; } }
+  .kombi .est-lede { color: #e9d8f5; }
+  .pista { background: rgba(0,0,0,.45); border: 1px solid rgba(63,242,255,.4); border-radius: 16px; padding: 20px; display: grid; gap: 10px; box-shadow: 0 0 30px rgba(63,242,255,.12); }
+  .raia { position: relative; height: 64px; border-bottom: 1px dashed rgba(233,216,245,.25); }
+  .raia:last-of-type { border-bottom: 0; }
+  .raia::before {
+    content: "CHEGADA"; position: absolute; left: 0; top: 0; bottom: 0; width: 34px;
+    background: repeating-conic-gradient(#fff 0 25%, #000 0 50%) 0 0 / 12px 12px; opacity: .8;
+    writing-mode: vertical-rl; font-size: 0;
+  }
+  .raia .nome { position: absolute; right: 8px; top: 2px; font-family: var(--f-mono); font-size: .72rem; letter-spacing: .1em; text-transform: uppercase; color: #cbb9dc; }
+  .corredor { position: absolute; right: 8px; bottom: 6px; font-size: 38px; line-height: 1; will-change: transform; }
+  .corredor.kombi-v { filter: drop-shadow(0 6px 6px var(--neon-rosa)) drop-shadow(0 0 10px var(--neon-ciano)); }
+  .pista-controles { display: flex; flex-wrap: wrap; gap: 12px 20px; align-items: center; margin-top: 8px; }
+  .btn-neon { background: transparent; color: #fff; border-color: var(--neon-ciano); box-shadow: 0 0 14px rgba(63,242,255,.5), inset 0 0 14px rgba(63,242,255,.25); }
+  .btn-neon:hover { background: rgba(63,242,255,.12); }
+  .placar { font-family: var(--f-mono); font-size: .9rem; color: #e9d8f5; }
+  .prova { margin-top: 32px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; counter-reset: passo; list-style: none; padding: 0; }
+  .prova li { counter-increment: passo; background: rgba(0,0,0,.4); border: 1px solid rgba(255,63,180,.35); border-radius: 14px; padding: 18px 18px 18px 58px; position: relative; color: #f1e6fa; }
+  .prova li::before {
+    content: counter(passo); position: absolute; left: 16px; top: 16px; width: 30px; height: 30px; border-radius: 50%;
+    display: grid; place-items: center; font-family: var(--f-mono); font-weight: 600; font-size: .9rem;
+    color: var(--noite); background: var(--neon-ciano); box-shadow: 0 0 12px var(--neon-ciano);
+  }
+  .prova li.qed { grid-column: 1 / -1; border-color: var(--neon-ciano); }
+  .prova strong { color: #fff; }
+
+  /* Estação 8: heresias */
+  .tabela-wrap { overflow-x: auto; border: 1px solid var(--trilho); border-radius: 14px; }
+  table { width: 100%; border-collapse: collapse; min-width: 560px; }
+  th, td { text-align: left; padding: 14px 18px; border-bottom: 1px solid var(--trilho); vertical-align: top; }
+  th { font-family: var(--f-mono); font-size: .75rem; letter-spacing: .14em; text-transform: uppercase; color: var(--vapor-3); background: var(--carvao-2); }
+  tr:last-child td { border-bottom: 0; }
+  tbody tr { transition: background .15s; }
+  tbody tr:hover { background: rgba(255,107,74,.06); }
+  td:first-child code { color: var(--heresia); white-space: nowrap; }
+  td:last-child { color: var(--vapor-2); }
+  .concilio-titulo { font-family: var(--f-display); font-weight: 400; font-size: 1.6rem; margin: 48px 0 18px; }
+  .concilio { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+  .caso { background: var(--carvao-2); border: 1px solid var(--trilho); border-radius: 14px; padding: 20px; display: grid; gap: 10px; align-content: start; }
+  .caso .veredito-tag { justify-self: start; font-family: var(--f-mono); font-size: .74rem; letter-spacing: .08em; text-transform: uppercase; padding: .3em .7em; border-radius: 999px; }
+  .tag-ok { color: var(--verde); border: 1px solid rgba(143,214,148,.45); }
+  .tag-cisma { color: var(--ouro); border: 1px solid rgba(242,181,60,.5); }
+  .caso h4 { margin: 0; font-family: var(--f-display); font-weight: 400; font-size: 1.15rem; }
+  .caso p { color: var(--vapor-2); font-size: .96rem; }
+
+  /* Estação 9: FAQ */
+  .faq { display: grid; gap: 10px; max-width: 860px; }
+  .faq details { background: var(--carvao-2); border: 1px solid var(--trilho); border-radius: 14px; overflow: hidden; }
+  .faq details[open] { border-color: var(--ouro); }
+  .faq summary {
+    list-style: none; cursor: pointer; padding: 18px 56px 18px 20px; position: relative;
+    font-family: var(--f-display); font-size: 1.12rem; line-height: 1.3;
+  }
+  .faq summary::-webkit-details-marker { display: none; }
+  .faq summary::after {
+    content: "+"; position: absolute; right: 20px; top: 50%; transform: translateY(-50%);
+    font-family: var(--f-mono); font-size: 1.4rem; color: var(--ouro); transition: transform .2s;
+  }
+  .faq details[open] summary::after { transform: translateY(-50%) rotate(45deg); }
+  .faq .resp { padding: 0 20px 20px; color: var(--vapor-2); max-width: 70ch; }
+
+  /* Estação 10: juramento */
+  .juramento {
+    position: relative; max-width: 780px; margin-inline: auto; text-align: center;
+    padding: clamp(32px, 6vw, 60px) clamp(20px, 5vw, 56px);
+    background: linear-gradient(180deg, rgba(242,181,60,.1), rgba(196,80,43,.08)), var(--carvao-2);
+    border: 2px solid var(--ouro); border-radius: 20px;
+    box-shadow: 0 0 0 8px var(--carvao), 0 0 0 10px var(--trilho), 0 30px 80px rgba(0,0,0,.5);
+    display: grid; gap: 22px; justify-items: center;
+  }
+  .juramento h2 { font-family: var(--f-display); font-weight: 400; font-size: clamp(2rem, 5vw, 3.2rem); color: var(--ouro); }
+  .juramento ol { list-style: none; padding: 0; margin: 0; display: grid; gap: 10px; font-size: clamp(1.02rem, 1.8vw, 1.2rem); }
+  .juramento ol li { color: var(--vapor); }
+  .juramento .uai { font-family: var(--f-display); font-size: 2.2rem; color: var(--ouro); }
+  .jurou-msg { color: var(--verde); font-family: var(--f-mono); font-size: .9rem; min-height: 1.4em; }
+  .particula { position: fixed; z-index: 60; pointer-events: none; font-size: 28px; line-height: 1; }
+
+  /* ---------- Rodapé ---------- */
+  .rodape { padding-block: 56px 72px; border-top: 1px solid var(--trilho); color: var(--vapor-3); font-size: .95rem; }
+  .rodape .wrap { display: grid; gap: 10px; }
+  .rodape strong { color: var(--vapor-2); font-weight: 600; }
+
+  /* ---------- Responsivo ---------- */
+  @media (max-width: 900px) {
+    .equacao { grid-template-columns: 1fr; }
+    .op { font-size: 2rem; }
+    .regras, .lab, .ia { grid-template-columns: 1fr; }
+    .args, .concilio, .prova { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 640px) {
+    body { font-size: 1rem; }
+    .board-cols, .board-rows a { grid-template-columns: 3.6rem 1fr auto; padding-inline: 14px; }
+    .board-cols .plat, .board-rows .plat { display: none; }
+    .valores li { grid-template-columns: 1fr; }
+    .linha-ponta { grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 4px; }
+    .linha-ponta::before { top: 22px; }
+    .parada .bola { width: 46px; height: 46px; font-size: 1.3rem; }
+    .parada strong { font-size: .72rem; }
+    .parada code { display: none; }
+    .viajante { font-size: 22px; top: -18px; }
+    .hero { padding-bottom: 130px; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after { animation-duration: .001ms !important; animation-iteration-count: 1 !important; transition-duration: .001ms !important; }
+    .comboio { animation: none; left: var(--gutter); }
+    .letreiro-faixa { animation: none; }
+    .fumaca { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="progresso" aria-hidden="true"><span class="mini-trem">🚂</span></div>
+
+<header class="hero" id="embarque">
+  <div class="wrap hero-inner">
+    <p class="eyebrow">🏔️ Minas Gerais · desde sempre</p>
+    <h1 class="hero-title" aria-label="O Manifesto Trem">
+      <span class="h-small" aria-hidden="true">O Manifesto</span>
+      <span class="h-big" aria-hidden="true"><span>T</span><span>R</span><span>E</span><span>M</span></span>
+    </h1>
+    <p class="hero-lede">Nem SQL, nem NoSQL. <strong>Uma tabela. Um tipo. Todas as colunas opcionais.</strong> A metodologia que Minas Gerais guarda há trezentos anos, agora explicada estação por estação pra quem escreve software.</p>
+    <div class="hero-ctas">
+      <a class="btn btn-ouro" href="#problema">🚂 Embarcar</a>
+      <a class="btn btn-ghost" href="#laboratorio">🧪 Montar meu trem</a>
+    </div>
+    <ul class="selos">
+      <li>☕ Coado na hora</li>
+      <li>🧀 Com pão de queijo</li>
+      <li>📜 O maior manifesto da história</li>
+    </ul>
+  </div>
+  <div class="ferrovia" aria-hidden="true">
+    <div class="comboio">
+      <span>🚂<i class="fumaca"></i><i class="fumaca f2"></i><i class="fumaca f3"></i></span><span>🚃</span><span>🚃</span><span>🚃</span><span>🚃</span><span>🚃</span>
+    </div>
+    <div class="trilhos"></div>
+  </div>
+</header>
+
+<div class="letreiro" aria-hidden="true">
+  <div class="letreiro-faixa">
+    <span>UMA TABELA</span><span>🚂</span><span>UM TIPO</span><span>🚂</span><span>TODAS AS COLUNAS OPCIONAIS</span><span>🚂</span><span>JOIN DE TREM COM TREM</span><span>🚂</span><span>UAI</span><span>🚂</span>
+    <span>UMA TABELA</span><span>🚂</span><span>UM TIPO</span><span>🚂</span><span>TODAS AS COLUNAS OPCIONAIS</span><span>🚂</span><span>JOIN DE TREM COM TREM</span><span>🚂</span><span>UAI</span><span>🚂</span>
+  </div>
+</div>
+
+<section class="partidas wrap" aria-label="Quadro de partidas">
+  <div class="board">
+    <div class="board-head"><span>🕰️ Partidas · Linha Trem</span><span class="relogio" id="relogio">--:--</span></div>
+    <div class="board-cols" aria-hidden="true"><span>Hora</span><span>Destino</span><span class="plat">Plataforma</span><span>Situação</span></div>
+    <ol class="board-rows">
+      <li><a href="#problema" data-alvo="problema"><span>07:00</span><span class="dest">A guerra besta</span><span class="plat">Est. 1</span><span class="status">No horário</span></a></li>
+      <li><a href="#regras" data-alvo="regras"><span>07:30</span><span class="dest">As duas regras</span><span class="plat">Est. 2</span><span class="status">No horário</span></a></li>
+      <li><a href="#valores" data-alvo="valores"><span>08:00</span><span class="dest">Os valores</span><span class="plat">Est. 3</span><span class="status">No horário</span></a></li>
+      <li><a href="#fundamentos" data-alvo="fundamentos"><span>08:45</span><span class="dest">Fundamentação técnica</span><span class="plat">Est. 4</span><span class="status">No horário</span></a></li>
+      <li><a href="#laboratorio" data-alvo="laboratorio"><span>09:30</span><span class="dest">Laboratório do trem</span><span class="plat">Est. 5</span><span class="status">No horário</span></a></li>
+      <li><a href="#ia" data-alvo="ia"><span>10:15</span><span class="dest">O trem e a IA</span><span class="plat">Est. 6</span><span class="status">No horário</span></a></li>
+      <li><a href="#kombi" data-alvo="kombi"><span>10:16</span><span class="dest">Kombi tunada com neon</span><span class="plat">Est. 7</span><span class="status">No horário</span></a></li>
+      <li><a href="#heresias" data-alvo="heresias"><span>11:00</span><span class="dest">Das heresias</span><span class="plat">Est. 8</span><span class="status">No horário</span></a></li>
+      <li><a href="#faq" data-alvo="faq"><span>11:30</span><span class="dest">Perguntas frequentes</span><span class="plat">Est. 9</span><span class="status">No horário</span></a></li>
+      <li><a href="#juramento" data-alvo="juramento"><span>12:00</span><span class="dest">O juramento</span><span class="plat">Est. 10</span><span class="status">No horário</span></a></li>
+    </ol>
+  </div>
+</section>
+
+<!-- Estação 1 -->
+<section class="estacao" id="problema">
+  <div class="wrap">
+    <div class="est-head">
+      <span class="placa">Estação 1 · 07:00</span>
+      <h2>A guerra <em>besta</em></h2>
+      <p class="est-lede">Faz vinte anos que a indústria briga entre SQL e NoSQL. Cada lado ficou com metade da verdade. Lá nas montanhas, tomando café, Minas Gerais já tinha somado as duas metades.</p>
+    </div>
+    <div class="equacao">
+      <div class="lado">
+        <h3><span class="emoji">🗄️</span> SQL</h3>
+        <ul>
+          <li>✅ Tipos de verdade</li>
+          <li>✅ Joins</li>
+          <li>❌ Migration toda semana</li>
+          <li>❌ O DBA está de férias</li>
+        </ul>
+      </div>
+      <div class="op" aria-hidden="true">+</div>
+      <div class="lado">
+        <h3><span class="emoji">📄</span> NoSQL</h3>
+        <ul>
+          <li>✅ Flexível</li>
+          <li>✅ Sem migration</li>
+          <li>❌ <code>nome</code>, <code>name</code>, <code>nomeCompleto</code>, <code>NOME</code></li>
+          <li>❌ Ninguém sabe o que tem dentro</li>
+        </ul>
+      </div>
+      <div class="op" aria-hidden="true">=</div>
+      <div class="lado trem">
+        <h3><span class="emoji">🚂</span> Trem</h3>
+        <ul>
+          <li>✅ Tipos de verdade</li>
+          <li>✅ Joins (de trem com trem)</li>
+          <li>✅ Flexível como documento</li>
+          <li>✅ Nenhuma migration quebra nada</li>
+          <li>✅ Acompanha café</li>
+        </ul>
+      </div>
+    </div>
+    <p class="rodape-est">O mineiro nunca precisou de mais de uma palavra pra classificar o universo. Cadeira é trem. Carro é trem. Sentimento é trem. Documento fiscal é trem. <strong>O mineiro inventou o tipo universal antes da ciência da computação existir.</strong></p>
+  </div>
+</section>
+
+<!-- Estação 2 -->
+<section class="estacao" id="regras">
+  <div class="wrap">
+    <div class="est-head">
+      <span class="placa">Estação 2 · 07:30</span>
+      <h2>As duas <em>regras</em></h2>
+      <p class="est-lede">A metodologia inteira cabe em duas regras. As duas são inegociáveis.</p>
+    </div>
+    <div class="regras">
+      <div class="regra">
+        <span class="regra-rotulo">🗄️ Regra 1 · Banco de dados</span>
+        <h3>Existe uma única tabela, e ela se chama <code>trem</code>.</h3>
+        <div class="janela">
+          <div class="janela-barra"><i></i><i></i><i></i><span>schema.sql</span></div>
+<pre><span class="k">CREATE TABLE</span> trem (
+  id          <span class="t">uuid</span> <span class="k">PRIMARY KEY DEFAULT</span> gen_random_uuid(),
+  trem_id     <span class="t">uuid</span> <span class="k">REFERENCES</span> trem(id),
+  origem_id   <span class="t">uuid</span> <span class="k">REFERENCES</span> trem(id),
+  destino_id  <span class="t">uuid</span> <span class="k">REFERENCES</span> trem(id),
+  nome        <span class="t">text</span>,
+  email       <span class="t">text</span>,
+  preco_em_centavos <span class="t">bigint</span>,
+  quantidade  <span class="t">integer</span>,
+  embedding   <span class="t">vector</span>(1536),
+  criado_em   <span class="t">timestamptz</span> <span class="k">DEFAULT</span> now(),
+  deletado_em <span class="t">timestamptz</span>
+  <span class="c">-- e quantas colunas o trem precisar.</span>
+  <span class="c">-- Todas opcionais.</span>
+);</pre>
+        </div>
+      </div>
+      <div class="regra">
+        <span class="regra-rotulo">⚙️ Regra 2 · Aplicação</span>
+        <h3>Existe um único tipo, e ele se chama <code>Trem</code>.</h3>
+        <div class="janela">
+          <div class="janela-barra"><i></i><i></i><i></i><span>trem.ts</span></div>
+<pre><span class="k">export type</span> <span class="t">Trem</span> = {
+  id?: <span class="t">string</span>;
+  trem_id?: <span class="t">string</span>;
+  origem_id?: <span class="t">string</span>;
+  destino_id?: <span class="t">string</span>;
+  nome?: <span class="t">string</span>;
+  email?: <span class="t">string</span>;
+  preco_em_centavos?: <span class="t">number</span>;
+  quantidade?: <span class="t">number</span>;
+  embedding?: <span class="t">number</span>[];
+  criado_em?: <span class="t">Date</span>;
+  deletado_em?: <span class="t">Date</span>;
+  <span class="c">// espelho fiel da tabela trem.</span>
+  <span class="c">// Todos opcionais.</span>
+};</pre>
+        </div>
+      </div>
+    </div>
+
+    <div class="ponta">
+      <h3>É trem de <em>ponta a ponta</em></h3>
+      <div class="linha-ponta">
+        <span class="viajante" aria-hidden="true"><span>🚂</span></span>
+        <div class="parada"><span class="bola">🗄️</span><strong>Banco</strong><code>trem</code></div>
+        <div class="parada"><span class="bola">⚙️</span><strong>Back-end</strong><code>Trem</code></div>
+        <div class="parada"><span class="bola">📱</span><strong>Front-end</strong><code>Trem</code></div>
+        <div class="parada"><span class="bola">🧪</span><strong>Testes</strong><code>Trem</code></div>
+        <div class="parada"><span class="bola">📊</span><strong>Diretoria</strong><code>Trem</code></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Estação 3 -->
+<section class="estacao" id="valores">
+  <div class="wrap">
+    <div class="est-head">
+      <span class="placa">Estação 3 · 08:00</span>
+      <h2>Os <em>valores</em></h2>
+      <p class="est-lede">No espírito do Manifesto Ágil, que, reparem, também é um manifesto só, declaramos que valorizamos:</p>
+    </div>
+    <ul class="valores">
+      <li><span class="mais">🚂 Um trem</span><span class="menos">muitas tabelas</span></li>
+      <li><span class="mais">🕊️ Colunas opcionais</span><span class="menos">migrations obrigatórias</span></li>
+      <li><span class="mais">🔁 Join de trem com trem</span><span class="menos">join de coisa com outra coisa</span></li>
+      <li><span class="mais">🙏 Tipagem forte e humilde</span><span class="menos"><code>any</code> preguiçoso ou schema engessado</span></li>
+      <li><span class="mais">🚐 Velocidade de Kombi com neon</span><span class="menos">qualquer outra velocidade conhecida</span></li>
+    </ul>
+    <p class="rodape-est">Mesmo reconhecendo valor nos itens à direita, a gente fica com o trem.</p>
+  </div>
+</section>
+
+<!-- Estação 4 -->
+<section class="estacao" id="fundamentos">
+  <div class="wrap">
+    <div class="est-head">
+      <span class="placa">Estação 4 · 08:45</span>
+      <h2>Fundamentação <em>técnica</em></h2>
+      <p class="est-lede">Dez argumentos, sustentados pelo PostgreSQL, pelo TypeScript e pelas maiores empresas de tecnologia do mundo. Leia com calma e um café do lado.</p>
+    </div>
+    <div class="args">
+      <article class="arg">
+        <span class="arg-emoji">🦆</span>
+        <h3>Duck typing no banco</h3>
+        <p>Ninguém declara o que é cliente e o que é pedido. O pedido é pedido <strong>porque tem preço</strong>. Um trem é definido pelo que ele carrega.</p>
+<pre><span class="k">SELECT</span> pedido.*
+<span class="k">FROM</span> trem <span class="k">AS</span> cliente
+<span class="k">JOIN</span> trem <span class="k">AS</span> pedido
+  <span class="k">ON</span> pedido.trem_id = cliente.id
+<span class="k">WHERE</span> cliente.email = <span class="s">'ze@uai.com.br'</span>
+  <span class="k">AND</span> pedido.preco_em_centavos <span class="k">IS NOT NULL</span>;</pre>
+      </article>
+      <article class="arg">
+        <span class="arg-emoji">🏢</span>
+        <h3>A indústria chegou lá pela metade</h3>
+        <ul>
+          <li><strong>Bigtable, HBase e Cassandra</strong> são tabelas esparsas com colunas quase sempre vazias.</li>
+          <li>A <strong>AWS recomenda <em>single-table design</em></strong> no DynamoDB.</li>
+          <li>O <strong>Rails</strong> tem <em>Single Table Inheritance</em> há quase vinte anos.</li>
+          <li>O <strong>Protobuf 3</strong> removeu os campos <code>required</code>.</li>
+          <li>No <strong>GraphQL</strong>, campo aceita nulo por padrão.</li>
+        </ul>
+        <p>Cada um achou um pedaço. Minas achou a verdade inteira, e com café.</p>
+      </article>
+      <article class="arg">
+        <span class="arg-emoji">🙏</span>
+        <h3>Toda coluna opcional é honestidade</h3>
+        <p>No mundo real, todo dado pode faltar. O endereço veio sem número porque "é a casa amarela depois da venda do Seu Tião". Um <code>NOT NULL</code> é uma promessa que o mundo não vai cumprir.</p>
+        <p><code>Trem</code> não é <code>any</code>. O <code>any</code> desiste de tipar. O <code>Trem</code> sabe o que pode ter, só não exige que tenha.</p>
+      </article>
+      <article class="arg">
+        <span class="arg-emoji">🔄</span>
+        <h3>Migrations nunca mais quebram nada</h3>
+        <p>No PostgreSQL, adicionar coluna nula sem default só mexe em metadados. É instantâneo. Cliente antigo ignora a coluna nova, cliente novo usa. Compatibilidade pra frente e pra trás, de fábrica.</p>
+<pre><span class="k">ALTER TABLE</span> trem <span class="k">ADD COLUMN</span> cor <span class="t">text</span>;
+<span class="c">-- pronto. ninguém quebrou.</span></pre>
+      </article>
+      <article class="arg">
+        <span class="arg-emoji">🫥</span>
+        <h3>Nulo sai de graça</h3>
+        <p>No PostgreSQL, um valor nulo gasta <strong>um bit</strong> no <em>null bitmap</em> da linha. O vazio no trem é quase de graça, igual ao silêncio mineiro. Pra performance, cada "entidade" ganha seu índice parcial.</p>
+<pre><span class="k">CREATE INDEX</span> trem_pedidos <span class="k">ON</span> trem (trem_id)
+<span class="k">WHERE</span> preco_em_centavos <span class="k">IS NOT NULL</span>;</pre>
+      </article>
+      <article class="arg">
+        <span class="arg-emoji">🕸️</span>
+        <h3>Muitos-para-muitos é trem</h3>
+        <blockquote>Um trem que liga um trem a outro trem é um trem.</blockquote>
+<pre><span class="k">INSERT INTO</span> trem (origem_id, destino_id)
+<span class="k">VALUES</span> (<span class="s">'aluno'</span>, <span class="s">'disciplina'</span>);</pre>
+        <p>De quebra, a tabela vira também um banco de grafos.</p>
+      </article>
+      <article class="arg">
+        <span class="arg-emoji">🧠</span>
+        <h3>Metade da Ciência da Computação resolvida</h3>
+        <blockquote>"Só existem duas coisas difíceis em Ciência da Computação: invalidação de cache e dar nome às coisas." (Phil Karlton)</blockquote>
+        <p>Ninguém mais discute <code>User</code> contra <code>Usuario</code>, nem singular contra plural. É trem. A invalidação de cache fica pra depois.</p>
+      </article>
+      <article class="arg">
+        <span class="arg-emoji">⏱️</span>
+        <h3>Onboarding em um segundo</h3>
+        <p>Dev novo pergunta: <em>"Qual é o modelo de dados?"</em></p>
+        <p>Resposta: <em>"Trem."</em></p>
+        <p>Onboarding concluído. Pode pegar a primeira task.</p>
+      </article>
+      <article class="arg">
+        <span class="arg-emoji">🧪</span>
+        <h3>Testes sem fixture</h3>
+        <p>O menor trem válido é o objeto vazio. Ele compila e entra no banco. Todo teste começa dele e acrescenta só o que precisa.</p>
+<pre><span class="k">const</span> tremPrimordial: <span class="t">Trem</span> = {};
+<span class="k">INSERT INTO</span> trem <span class="k">DEFAULT VALUES</span>;</pre>
+      </article>
+      <article class="arg">
+        <span class="arg-emoji">🧩</span>
+        <h3>TypeScript é estrutural, e o trem também</h3>
+        <p>No TypeScript, o que define um tipo é a forma, e não o nome. No trem, o que define um pedido é ter preço. Banco e linguagem pensam igual. O ORM fica com um model só e a impedância objeto-relacional some.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- Estação 5 -->
+<section class="estacao" id="laboratorio">
+  <div class="wrap">
+    <div class="est-head">
+      <span class="placa">Estação 5 · 09:30</span>
+      <h2>Laboratório do <em>trem</em></h2>
+      <p class="est-lede">Engate os vagões que quiser e veja o que o seu trem é. Não importa a combinação: continua sendo <code>Trem</code>, e continua compilando.</p>
+    </div>
+    <div class="lab">
+      <div class="painel">
+        <h3>🚃 Engate as colunas</h3>
+        <div class="vagoes" id="vagoes"></div>
+      </div>
+      <div class="painel" aria-live="polite">
+        <div class="veredito" id="veredito">
+          <span class="v-emoji" id="v-emoji">🧑</span>
+          <div><strong id="v-titulo">Um usuário</strong><span class="sub" id="v-sub">Tem email. Pelo que carrega, é gente.</span></div>
+        </div>
+        <div class="selos-ok"><span class="selo-ok">✅ type Trem: compila</span><span class="selo-ok">✅ INSERT válido</span><span class="selo-ok">✅ Zero migrations</span></div>
+        <p class="saida-rotulo">TypeScript</p>
+        <pre class="saida" id="saida-ts"></pre>
+        <p class="saida-rotulo">SQL</p>
+        <pre class="saida" id="saida-sql"></pre>
+      </div>
+    </div>
+
+    <div class="painel detector">
+      <h3>🔍 Detector de heresias</h3>
+      <p class="dica">Cole um trecho de SQL ou TypeScript e o Concílio julga na hora.</p>
+      <form class="detector-form" id="detector-form">
+        <label for="detector-input" class="saida-rotulo" style="position:absolute;left:-9999px">Código a julgar</label>
+        <input id="detector-input" type="text" value="CREATE TABLE outro_trem (id uuid);" autocomplete="off" spellcheck="false">
+        <button class="btn btn-ouro" type="submit">⚖️ Julgar</button>
+      </form>
+      <div class="exemplos" id="exemplos">
+        <button type="button">CREATE TABLE trens (id uuid);</button>
+        <button type="button">ALTER TABLE trem ADD COLUMN cor text;</button>
+        <button type="button">ALTER TABLE trem ADD COLUMN cpf text NOT NULL;</button>
+        <button type="button">interface ITrem { nome: string }</button>
+        <button type="button">type Trem = any;</button>
+        <button type="button">CREATE VIEW pedidos AS SELECT * FROM trem;</button>
+      </div>
+      <div class="sentenca" id="sentenca"><span class="s-emoji">⚖️</span><div><strong>Aguardando julgamento</strong><span>Clique em Julgar.</span></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- Estação 6 -->
+<section class="estacao" id="ia">
+  <div class="wrap">
+    <div class="est-head">
+      <span class="placa">Estação 6 · 10:15</span>
+      <h2>O trem e a <em>inteligência artificial</em></h2>
+      <p class="est-lede">O software de hoje é escrito em parceria com IA. É aqui que o trem deixa de ser só uma boa ideia e vira uma ideia necessária.</p>
+    </div>
+    <div class="ia">
+      <div class="ia-destaque">
+        <div class="numerao">
+          <b>100%</b>
+          <span>de chance de a IA acertar o nome da tabela. Existe uma só. Nenhum outro paradigma de modelagem oferece essa garantia matemática.</span>
+        </div>
+        <div class="chat" aria-label="Exemplo de conversa com uma IA">
+          <div class="bolha eu">Me descreve o modelo de dados inteiro do sistema?</div>
+          <div class="bolha ia-b"><span class="digitando" aria-hidden="true"><i></i><i></i><i></i></span></div>
+          <div class="bolha ia-b">Trem.</div>
+          <div class="bolha eu">Só isso?</div>
+          <div class="bolha ia-b">Uai, e precisa de mais? 🚂</div>
+        </div>
+      </div>
+      <ul class="ia-lista">
+        <li><span class="e">🎯</span><div><strong>A IA nunca inventa um tipo que não existe</strong><p>Se ela escrever <code>Pedido</code> ou <code>CustomerDTO</code>, o compilador reclama na hora. O único tipo é <code>Trem</code>.</p></div></li>
+        <li><span class="e">🤖</span><div><strong>Agentes mexem no schema com segurança</strong><p>Precisa de campo novo? <code>ADD COLUMN</code>, opcional. Nenhum cliente quebra e nenhuma migration destrutiva roda.</p></div></li>
+        <li><span class="e">📆</span><div><strong>Requisito muda toda semana</strong><p>Schema rígido é uma aposta de que o futuro vai ser igual ao presente. Essa aposta perde sempre. O trem não aposta, aceita.</p></div></li>
+        <li><span class="e">🧭</span><div><strong>Embeddings já têm lugar</strong><p>Todo trem pode ter um vetor. Busca semântica vira <code>ORDER BY embedding &lt;=&gt; $1</code> na mesma tabela de sempre. RAG de trem sobre trem.</p></div></li>
+        <li><span class="e">🪶</span><div><strong>Contexto menor</strong><p>Descrever o modelo de dados inteiro pra um LLM custa uma palavra.</p></div></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- Estação 7 -->
+<section class="estacao kombi" id="kombi">
+  <div class="wrap">
+    <div class="est-head">
+      <span class="placa">Estação 7 · 10:16</span>
+      <h2 class="neon-titulo">Kombi tunada <em>com neon</em></h2>
+      <p class="est-lede">A Metodologia Trem foi feita pra desenvolvimento muito rápido. Tão rápido quanto o veículo mais rápido do planeta. Largue a corrida e confira.</p>
+    </div>
+    <div class="pista" id="pista">
+      <div class="raia"><span class="nome">✈️ Caça da FAB</span><span class="corredor" data-tempo="4200">✈️</span></div>
+      <div class="raia"><span class="nome">🛸 OVNI de 1986</span><span class="corredor" data-tempo="2600">🛸</span></div>
+      <div class="raia"><span class="nome">🚐 Kombi tunada com neon</span><span class="corredor kombi-v" data-tempo="850">🚐</span></div>
+      <div class="pista-controles">
+        <button class="btn btn-neon" id="largar" type="button">🏁 Largar</button>
+        <span class="placar" id="placar">Histórico oficial: a Kombi venceu 100% das corridas registradas.</span>
+      </div>
+    </div>
+    <ol class="prova">
+      <li>Na <strong>Noite Oficial dos OVNIs</strong>, em 19 de maio de 1986, a FAB mandou caças atrás de objetos voadores no céu do Brasil. <strong>Os caças não alcançaram os OVNIs.</strong> Logo, OVNI é mais rápido que jato.</li>
+      <li>Os OVNIs foram vistos no planeta. Tudo o que é visto no planeta é do planeta. <strong>Logo, os OVNIs são do planeta</strong> e disputam o título.</li>
+      <li>Não existe <strong>nenhum registro</strong>, em nenhum arquivo oficial de nenhum país, de um OVNI ultrapassando uma Kombi tunada com neon.</li>
+      <li>Logo, a Kombi tunada com neon é mais rápida que os OVNIs, que são mais rápidos que os jatos. <strong>∎</strong></li>
+      <li class="qed">O dev que adota a Metodologia Trem passa pelos concorrentes presos em migration como uma Kombi passa por um OVNI: sem registro, sem testemunha e com o neon piscando.</li>
+    </ol>
+  </div>
+</section>
+
+<!-- Estação 8 -->
+<section class="estacao" id="heresias">
+  <div class="wrap">
+    <div class="est-head">
+      <span class="placa">Estação 8 · 11:00</span>
+      <h2>Das <em>heresias</em></h2>
+      <p class="est-lede">O trem é um só. Qualquer desvio disso, por menor que seja, deturpa o Manifesto.</p>
+    </div>
+    <div class="tabela-wrap">
+      <table>
+        <thead><tr><th>Heresia</th><th>Por que é heresia</th></tr></thead>
+        <tbody>
+          <tr><td><code>CREATE TABLE outro_trem</code></td><td>É uma segunda tabela. O nome não salva ninguém.</td></tr>
+          <tr><td><code>CREATE TABLE trem_2</code></td><td>Mesma coisa, com a agravante do número.</td></tr>
+          <tr><td><code>CREATE TABLE trens</code></td><td>O plural é uma confissão: se tem mais de um, não é o trem.</td></tr>
+          <tr><td><code>CREATE TABLE trem_log</code></td><td>Log de trem é trem. Vai pra tabela <code>trem</code>.</td></tr>
+          <tr><td><code>CREATE TABLE vagao</code></td><td>Ninguém se engana: vagão é trem com outro nome.</td></tr>
+          <tr><td><code>type TremDTO</code></td><td>Um DTO de trem é um trem.</td></tr>
+          <tr><td><code>interface ITrem</code></td><td>O <code>I</code> na frente não muda nada. É outro tipo.</td></tr>
+          <tr><td><code>type Trem = any</code></td><td>Isso não é trem, é desistência.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3 class="concilio-titulo">⚖️ Casos julgados pelo Concílio de Tiradentes</h3>
+    <div class="concilio">
+      <div class="caso"><span class="veredito-tag tag-ok">✅ Permitido</span><h4>👀 Views</h4><p>Uma view é um jeito de olhar pro trem, e olhar pro trem não é criar trem. Materialized views estão em análise, porque guardam dados e o Concílio desconfia disso.</p></div>
+      <div class="caso"><span class="veredito-tag tag-ok">✅ Permitido</span><h4>🔭 <code>Pick&lt;Trem, 'email'&gt;</code></h4><p>Isso não é outro tipo. É o trem visto de lado.</p></div>
+      <div class="caso"><span class="veredito-tag tag-cisma">⚔️ Grande Cisma</span><h4>📋 Tabela de migrations do ORM</h4><p>Os Ortodoxos registram as migrations na própria tabela trem. Os Reformados toleram <code>_prisma_migrations</code> porque "é do ORM, não é nossa". O Manifesto recomenda o caminho Ortodoxo.</p></div>
+      <div class="caso"><span class="veredito-tag tag-ok">✅ Permitido</span><h4>🏘️ Um banco por microsserviço</h4><p>Desde que cada banco tenha só a sua tabela trem. O trem é um só, as estações é que são muitas.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- Estação 9 -->
+<section class="estacao" id="faq">
+  <div class="wrap">
+    <div class="est-head">
+      <span class="placa">Estação 9 · 11:30</span>
+      <h2>Perguntas <em>frequentes</em></h2>
+    </div>
+    <div class="faq">
+      <details open><summary>🐘 E o limite de 1.600 colunas do PostgreSQL?</summary><div class="resp">Se o seu trem precisar de mais de 1.600 colunas, ele ficou grande demais. Mas trem grande é trem bão. Converse com a comunidade do PostgreSQL. Nada de criar uma segunda tabela.</div></details>
+      <details><summary>📐 E a normalização? E a Terceira Forma Normal?</summary><div class="resp">A tabela trem está na <strong>Forma Normal Mineira</strong>, que vem depois de todas as outras: não pode haver redundância entre tabelas quando só existe uma tabela.</div></details>
+      <details><summary>🤔 Como eu sei se um trem é um usuário ou um pedido?</summary><div class="resp">Pelo que ele tem. Se tem email, é usuário. Se tem preço, é pedido. Se tem os dois, é um usuário que se vendeu. Teste no Laboratório, na Estação 5.</div></details>
+      <details><summary>🏷️ Não seria melhor ter uma coluna <code>tipo</code>?</summary><div class="resp">Até pode ter, é só mais uma coluna opcional. Mas pergunte a um mineiro que tipo de trem é aquele e ele vai responder: <em>"Uai, é trem."</em></div></details>
+      <details><summary>📈 Isso escala?</summary><div class="resp">Escala pelo menos tanto quanto uma Kombi, e sobre a Kombi já sabemos tudo o que precisamos saber (Estação 7).</div></details>
+      <details><summary>👥 Meu time vai aceitar?</summary><div class="resp">Seu time já fala "trem" no dia a dia. Falta só admitir isso no banco de dados.</div></details>
+    </div>
+  </div>
+</section>
+
+<!-- Estação 10 -->
+<section class="estacao" id="juramento">
+  <div class="wrap">
+    <div class="juramento">
+      <span class="placa">Estação 10 · Fim da linha</span>
+      <h2>O Juramento do Desenvolvedor Trem</h2>
+      <ol>
+        <li>Juro solenemente que só vou criar uma tabela, e ela vai se chamar <code>trem</code>;</li>
+        <li>que só vou declarar um tipo, e ele vai se chamar <code>Trem</code>;</li>
+        <li>que vou tratar toda coluna como opcional, porque a vida é assim;</li>
+        <li>que vou fazer join de trem com trem, sem vergonha nenhuma;</li>
+        <li>que nunca vou criar <code>outro_trem</code>, nem em staging, nem num sábado de madrugada;</li>
+        <li>e que vou entregar na velocidade de uma Kombi tunada com neon.</li>
+      </ol>
+      <span class="uai">Uai.</span>
+      <button class="btn btn-ouro" id="jurar" type="button">✋ Eu juro</button>
+      <p class="jurou-msg" id="jurou-msg" aria-live="polite"></p>
+    </div>
+  </div>
+</section>
+
+<footer class="rodape">
+  <div class="wrap">
+    <p><strong>Assinado em Minas Gerais</strong>, entre um café e um pão de queijo, por todos os que já disseram <em>"que trem é esse?"</em> olhando pra um schema com 47 tabelas.</p>
+    <p>Uma tabela. Um tipo. Um trem. Para sempre.</p>
+  </div>
+</footer>
+
+<script>
+(() => {
+  const reduz = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* Trilho de progresso */
+  const prog = document.querySelector('.progresso');
+  const atualiza = () => {
+    const max = document.documentElement.scrollHeight - innerHeight;
+    const p = max > 0 ? Math.min(1, scrollY / max) : 0;
+    prog.style.setProperty('--p', p.toFixed(4));
+    prog.classList.toggle('ativo', scrollY > 240);
+  };
+  addEventListener('scroll', atualiza, { passive: true });
+  addEventListener('resize', atualiza);
+  atualiza();
+
+  /* Relógio da estação */
+  const relogio = document.getElementById('relogio');
+  const tique = () => {
+    const d = new Date();
+    relogio.textContent = String(d.getHours()).padStart(2, '0') + ':' + String(d.getMinutes()).padStart(2, '0');
+  };
+  tique(); setInterval(tique, 15000);
+
+  /* Situação no quadro de partidas acompanha a leitura */
+  const linhas = [...document.querySelectorAll('.board-rows a')];
+  const ordem = linhas.map(a => a.dataset.alvo);
+  const marca = (idAtual) => {
+    const idx = ordem.indexOf(idAtual);
+    linhas.forEach((a, i) => {
+      const st = a.querySelector('.status');
+      st.className = 'status';
+      if (i < idx) { st.textContent = 'Partiu'; st.classList.add('partiu'); }
+      else if (i === idx) { st.textContent = 'Embarcando'; st.classList.add('embarcando'); }
+      else st.textContent = 'No horário';
+    });
+  };
+  marca('problema');
+  if ('IntersectionObserver' in window) {
+    const io = new IntersectionObserver((ents) => {
+      ents.forEach(e => { if (e.isIntersecting) marca(e.target.id); });
+    }, { rootMargin: '-45% 0px -50% 0px' });
+    ordem.forEach(id => { const el = document.getElementById(id); if (el) io.observe(el); });
+  }
+
+  /* Laboratório */
+  const COLS = [
+    { k: 'nome', sql: 'text', ts: 'string', vTs: "'Zé da Silva'", vSql: "'Zé da Silva'", on: true },
+    { k: 'email', sql: 'text', ts: 'string', vTs: "'ze@uai.com.br'", vSql: "'ze@uai.com.br'", on: true },
+    { k: 'preco_em_centavos', sql: 'bigint', ts: 'number', vTs: '1250', vSql: '1250' },
+    { k: 'quantidade', sql: 'integer', ts: 'number', vTs: '12', vSql: '12' },
+    { k: 'origem_id', sql: 'uuid', ts: 'string', vTs: "'b7e1…'", vSql: "'b7e1…'" },
+    { k: 'destino_id', sql: 'uuid', ts: 'string', vTs: "'9c4a…'", vSql: "'9c4a…'" },
+    { k: 'embedding', sql: 'vector', ts: 'number[]', vTs: '[0.12, -0.4, 0.9]', vSql: "'[0.12,-0.4,0.9]'" },
+    { k: 'deletado_em', sql: 'timestamptz', ts: 'Date', vTs: 'new Date()', vSql: 'now()' },
+  ];
+  const vagoes = document.getElementById('vagoes');
+  COLS.forEach((c, i) => {
+    const d = document.createElement('div');
+    d.className = 'vagao';
+    d.innerHTML = `<input type="checkbox" id="col-${c.k}" ${c.on ? 'checked' : ''}><label for="col-${c.k}"><span class="chave" aria-hidden="true"></span>${c.k}<span class="tipo">${c.sql}</span></label>`;
+    vagoes.appendChild(d);
+  });
+
+  const classifica = (s) => {
+    const n = s.size;
+    let r;
+    if (n === 0) r = ['🌫️', 'O trem primordial', 'Vazio e válido. Todo trem descende dele.'];
+    else if (s.has('origem_id') && s.has('destino_id')) r = ['🔗', 'Uma ligação muitos-para-muitos', 'Um trem que liga um trem a outro trem é um trem.'];
+    else if (s.has('email') && s.has('preco_em_centavos')) r = ['💸', 'Um usuário que se vendeu', 'Tem email e tem preço. O Concílio prefere não comentar.'];
+    else if (s.has('preco_em_centavos') && s.has('quantidade')) r = ['📦', 'Um pedido', 'Tem preço e quantidade. Pelo que carrega, é pedido.'];
+    else if (s.has('preco_em_centavos')) r = ['🏷️', 'Um produto', 'Tem preço. Alguém vai querer comprar esse trem.'];
+    else if (s.has('email')) r = ['🧑', 'Um usuário', 'Tem email. Pelo que carrega, é gente.'];
+    else if (s.has('origem_id') || s.has('destino_id')) r = ['🛤️', 'Uma viagem pela metade', 'Tem só uma ponta. Falta engatar a outra.'];
+    else if (s.has('embedding') && n <= 2) r = ['🧠', 'Um pensamento vetorial', 'Só um vetor, flutuando em 1536 dimensões.'];
+    else if (s.has('nome')) r = ['📛', 'Um trem com nome', 'Pode ser qualquer coisa. Talvez um cachorro.'];
+    else r = ['🚂', 'Um trem', 'Simplesmente um trem. E isso basta.'];
+    if (s.has('deletado_em') && n > 1) r = ['👻', r[1] + ' (deletado)', r[2] + ' Foi apagado, mas continua sendo trem.'];
+    else if (s.has('deletado_em')) r = ['👻', 'Um fantasma', 'Só tem data de exclusão. Morreu sem ter vivido, mas é trem.'];
+    return r;
+  };
+
+  const vered = document.getElementById('veredito');
+  const renderLab = (anima) => {
+    const on = COLS.filter(c => document.getElementById('col-' + c.k).checked);
+    const s = new Set(on.map(c => c.k));
+    const [e, t, sub] = classifica(s);
+    document.getElementById('v-emoji').textContent = e;
+    document.getElementById('v-titulo').textContent = t;
+    document.getElementById('v-sub').textContent = sub;
+    document.getElementById('saida-ts').textContent = on.length
+      ? 'const trem: Trem = {\n' + on.map(c => `  ${c.k}: ${c.vTs},`).join('\n') + '\n};'
+      : 'const trem: Trem = {};';
+    document.getElementById('saida-sql').textContent = on.length
+      ? `INSERT INTO trem (${on.map(c => c.k).join(', ')})\nVALUES (${on.map(c => c.vSql).join(', ')});`
+      : 'INSERT INTO trem DEFAULT VALUES;';
+    if (anima && !reduz) { vered.classList.remove('pula'); void vered.offsetWidth; vered.classList.add('pula'); }
+  };
+  vagoes.addEventListener('change', () => renderLab(true));
+  renderLab(false);
+
+  /* Detector de heresias */
+  const inp = document.getElementById('detector-input');
+  const sent = document.getElementById('sentenca');
+  const julga = (txt) => {
+    const t = txt.trim();
+    let m;
+    if (!t) return ['duvida', '🤷', 'Nada a julgar', 'Um silêncio mineiro. Válido, mas vazio.'];
+    if ((m = t.match(/create\s+materialized\s+view/i))) return ['duvida', '🧐', 'Em análise pelo Concílio', 'Materialized view guarda dados. O Concílio desconfia, mas ainda não decidiu.'];
+    if ((m = t.match(/create\s+view/i))) return ['ok', '👀', 'Permitido', 'Olhar pro trem não é criar trem.'];
+    if ((m = t.match(/create\s+(?:temp(?:orary)?\s+|unlogged\s+)?table\s+(?:if\s+not\s+exists\s+)?(?:\w+\.)?["`]?(\w+)/i))) {
+      const nome = m[1];
+      if (nome.toLowerCase() === 'trem') return ['ok', '✅', 'Ortodoxo', 'CREATE TABLE trem. Só se faz uma vez na vida. Faça com carinho.'];
+      if (nome.toLowerCase() === 'trens') return ['heresia', '🔥', 'HERESIA: tabela "trens"', 'O plural é uma confissão: se tem mais de um, não é o trem.'];
+      if (/trem/i.test(nome)) return ['heresia', '🔥', `HERESIA: tabela "${nome}"`, 'Ter "trem" no nome não salva ninguém. É uma segunda tabela.'];
+      return ['heresia', '🔥', `HERESIA: tabela "${nome}"`, `Um "${nome}" é um trem. Guarde na tabela trem.`];
+    }
+    if ((m = t.match(/alter\s+table\s+(?:\w+\.)?["`]?(\w+)["`]?\s+add\s+(?:column\s+)?/i))) {
+      if (m[1].toLowerCase() !== 'trem') return ['heresia', '🔥', `HERESIA: alterando "${m[1]}"`, 'Se essa tabela existe, o problema começou antes desse ALTER.'];
+      if (/not\s+null/i.test(t)) return ['heresia', '🔥', 'HERESIA: coluna obrigatória', 'NOT NULL é uma promessa que o mundo não vai cumprir. Tire o NOT NULL.'];
+      return ['ok', '✅', 'Ortodoxo', 'Coluna nova, opcional, instantânea. Ninguém quebrou.'];
+    }
+    if ((m = t.match(/\btype\s+(\w+)\s*=\s*any\b/))) return ['heresia', '🔥', 'HERESIA: desistência', 'Isso não é trem. O any desiste de tipar.'];
+    if ((m = t.match(/\b(type|interface|class|enum)\s+(\w+)/))) {
+      if (m[2] === 'Trem' && m[1] === 'type') return ['ok', '✅', 'Ortodoxo', 'O único tipo. Lembre de deixar todos os campos opcionais.'];
+      if (m[2] === 'Trem') return ['duvida', '🧐', `Um ${m[1]} chamado Trem`, 'O nome está certo. O Concílio prefere type, mas vai deixar passar.'];
+      return ['heresia', '🔥', `HERESIA: ${m[1]} ${m[2]}`, `Um ${m[2]} é um trem. Use o tipo Trem.`];
+    }
+    if (/\bany\b/.test(t)) return ['heresia', '🔥', 'HERESIA: any', 'Any é preguiça. Trem é sabedoria.'];
+    if (/\bjoin\s+trem\b/i.test(t) && /\bfrom\s+trem\b/i.test(t)) return ['ok', '✅', 'Ortodoxo', 'Join de trem com trem, sem vergonha nenhuma.'];
+    return ['duvida', '🤷', 'O Concílio não entendeu', 'Mas desconfia que seja trem.'];
+  };
+  const mostra = () => {
+    const [cls, e, titulo, texto] = julga(inp.value);
+    sent.className = 'sentenca ' + cls;
+    sent.innerHTML = '';
+    const se = document.createElement('span'); se.className = 's-emoji'; se.textContent = e;
+    const div = document.createElement('div');
+    const st = document.createElement('strong'); st.textContent = titulo;
+    const sp = document.createElement('span'); sp.textContent = texto;
+    div.append(st, sp); sent.append(se, div);
+    if (cls === 'heresia' && !reduz) { void sent.offsetWidth; sent.classList.add('treme'); }
+  };
+  document.getElementById('detector-form').addEventListener('submit', (ev) => { ev.preventDefault(); mostra(); });
+  document.getElementById('exemplos').addEventListener('click', (ev) => {
+    const b = ev.target.closest('button'); if (!b) return;
+    inp.value = b.textContent; mostra();
+  });
+  mostra();
+
+  /* Corrida */
+  const btnLargar = document.getElementById('largar');
+  const placar = document.getElementById('placar');
+  const corredores = [...document.querySelectorAll('.corredor')];
+  let estado = 'largada';
+  btnLargar.addEventListener('click', () => {
+    if (estado === 'correndo') return;
+    if (estado === 'chegou') {
+      corredores.forEach(c => { c.style.transition = 'none'; c.style.transform = 'none'; });
+      estado = 'largada'; btnLargar.textContent = '🏁 Largar';
+      placar.textContent = 'Posicionados na largada. Neon ligado.';
+      return;
+    }
+    estado = 'correndo'; btnLargar.textContent = '💨 Correndo…';
+    placar.textContent = 'Valendo!';
+    let maior = 0;
+    corredores.forEach(c => {
+      const raia = c.parentElement;
+      const dist = raia.clientWidth - c.offsetWidth - 44;
+      const t = reduz ? 1 : Number(c.dataset.tempo);
+      maior = Math.max(maior, t);
+      c.style.transition = `transform ${t}ms cubic-bezier(.45,.05,.3,1)`;
+      requestAnimationFrame(() => { c.style.transform = `translateX(-${dist}px)`; });
+    });
+    setTimeout(() => {
+      estado = 'chegou'; btnLargar.textContent = '🔁 De novo';
+      placar.textContent = '🥇 Kombi · 🥈 OVNI · 🥉 Caça. Nenhum OVNI ultrapassou a Kombi. De novo.';
+    }, maior + 150);
+  });
+
+  /* Juramento */
+  const btnJurar = document.getElementById('jurar');
+  const msg = document.getElementById('jurou-msg');
+  let jurou = false;
+  try { jurou = localStorage.getItem('trem-jurou') === '1'; } catch (e) {}
+  if (jurou) msg.textContent = '🚂 Você já jurou neste navegador. Uai!';
+  const EMOJIS = ['🚂', '🚃', '☕', '🧀', '🏔️', '🚐', '✨'];
+  btnJurar.addEventListener('click', () => {
+    try { localStorage.setItem('trem-jurou', '1'); } catch (e) {}
+    msg.textContent = '🚂 Juramento registrado neste navegador. Bem-vindo à linha, sô!';
+    if (reduz) return;
+    const r = btnJurar.getBoundingClientRect();
+    const cx = r.left + r.width / 2, cy = r.top + r.height / 2;
+    for (let i = 0; i < 36; i++) {
+      const p = document.createElement('span');
+      p.className = 'particula';
+      p.textContent = EMOJIS[i % EMOJIS.length];
+      p.style.left = cx + 'px'; p.style.top = cy + 'px';
+      document.body.appendChild(p);
+      const ang = Math.random() * Math.PI * 2;
+      const dist = 120 + Math.random() * 220;
+      const dx = Math.cos(ang) * dist, dy = Math.sin(ang) * dist - 120;
+      p.animate([
+        { transform: 'translate(-50%,-50%) scale(.3) rotate(0deg)', opacity: 1 },
+        { transform: `translate(calc(-50% + ${dx}px), calc(-50% + ${dy}px)) scale(1.2) rotate(${Math.random() * 720 - 360}deg)`, opacity: 1, offset: .7 },
+        { transform: `translate(calc(-50% + ${dx}px), calc(-50% + ${dy + 160}px)) scale(1) rotate(${Math.random() * 720 - 360}deg)`, opacity: 0 }
+      ], { duration: 1400 + Math.random() * 700, easing: 'cubic-bezier(.2,.7,.3,1)' }).onfinish = () => p.remove();
+    }
+  });
+})();
+</script>
+</body>
+</html>
